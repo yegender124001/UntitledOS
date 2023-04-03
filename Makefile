@@ -10,11 +10,13 @@ QEMU_BIN=qemu-system-x86_64
 QEMU_MEMORY=4G
 QEMU_CORES=1
 
+include makefile_modules/Qemu.mk
 
-__TASK = 1
-update_task = $(eval __TASK := $(shell expr $(__TASK) + 1))
+.PHONY=qemu
+DEFAULT=$(BUILD_DIR)/main.img
+LAUNCH=qemu
 
-include makefile_modules/*.mk
-
-.PHONY=run __TASK
-DEFAULT=run
+clean:
+	@echo -ne "$(color_red_background)  WAIT  $(color_reset) $(color_red_foreground)Cleaning$(color_reset)\r"
+	@rm -rf build/*
+	@echo -e "$(color_green_background)  DONE  $(color_reset)"

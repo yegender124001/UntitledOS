@@ -1,9 +1,9 @@
 include makefile_modules/MakeFloppy.mk
 
-run: $(BUILD_DIR)/main.img
-	@echo -e "$(__TASK): $(color_red_foreground)Running OS$(color_reset)"
+qemu: $(BUILD_DIR)/main.img
+	@echo -ne "$(color_red_background)  WAIT  $(color_reset) $(color_red_foreground)Running OS$(color_reset)\r"
 	@$(QEMU_BIN) --enable-kvm	\
 	-drive format=raw,file=$^	\
 	-m $(QEMU_MEMORY)	\
 	-smp $(QEMU_CORES)
-	$(call update_task)
+	@echo -e "$(color_green_background)  DONE  $(color_reset)"
